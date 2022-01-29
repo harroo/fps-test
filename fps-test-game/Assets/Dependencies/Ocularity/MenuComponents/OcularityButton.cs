@@ -21,6 +21,9 @@ public class OcularityButton : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private void Start () {
 
         buttonImage = GetComponent<Image>();
+
+        buttonImage.sprite = idleImage;
+        buttonImage.color = idleColor;
     }
 
     private void Update () {

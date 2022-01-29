@@ -37,6 +37,9 @@ public class OcularityToggle : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
         buttonImage = GetComponent<Image>();
 
+        buttonImage.sprite = idleImage;
+        buttonImage.color = idleColor;
+
         SetIndex(PlayerPrefs.GetInt(idname, 0));
 
         titleText.text = title + ": " + value;
