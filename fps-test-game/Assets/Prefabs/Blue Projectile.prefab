@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ba4a87bf2dc1a064da390ff5c6e37aad, type: 2}
+  - {fileID: 2100000, guid: eca51eaf6aa240375a1b8452853f2fe7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,9 +96,9 @@ GameObject:
   - component: {fileID: -1159270598956850582}
   - component: {fileID: 1114627406531862095}
   - component: {fileID: -281140715153251476}
-  - component: {fileID: 5515280160000614151}
+  - component: {fileID: 586840148092584001}
   m_Layer: 0
-  m_Name: Red Projectile
+  m_Name: Blue Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -205,10 +205,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77325c5fe6eaafdb6a2ed7ac1eb50f5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToCreateOnStart: {fileID: 568341774747559512, guid: 069ad6fe536579bfbaa00ccb9685db7e, type: 3}
+  objectToCreateOnStart: {fileID: 568341774747559512, guid: 127fed6db94a7c534a21ef47ff25b5d5, type: 3}
   objectToCreateOnDestroy: {fileID: 0}
   objectToCreateOnCollision: {fileID: 0}
---- !u!114 &5515280160000614151
+--- !u!114 &586840148092584001
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

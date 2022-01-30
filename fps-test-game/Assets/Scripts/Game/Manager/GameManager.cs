@@ -28,6 +28,9 @@ public class GameManager : MonoBehaviour {
         Network.udpClient.RunCallBacks();
 
         DriftureInterface.Simulate();
+
+        if (Input.GetKeyUp(KeyCode.Escape))
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
     }
 
     private void OnDestroy () {

@@ -3,42 +3,52 @@ using UnityEngine;
 
 public class Enemy : EntityBehaviour {
 
-    public Material mat1, mat2;
+    public int projectileId;
+    public Transform gun;
+    public float reloadTime;
+    public float moveForce;
+    public GameObject explodeEffect;
 
-    public override void UnlocalTick () {
+    private float reloadTimer;
+    private ProjectileManager projectileManager;
+    private Rigidbody rbody;
 
-        GetComponent<MeshRenderer>().material = isLocal ? mat1 : mat2;
+    public override void Spawn () {
+
+        projectileManager = FindObjectOfType<ProjectileManager>();
+        rbody = FindObjectOfType<Rigidbody>();
     }
+
+    private int actionId;
+    private float actionTimer;
 
     public override void Tick () {
 
-        transform.Rotate(1 * Time.deltaTime, 2 * Time.deltaTime, 3 * Time.deltaTime);
+        transform.LookAt(PlayerRef.player);
 
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (reloadTimer < 0) { reloadTimer = reloadTime;
 
-            float sl = Random.Range(2, 6) / 6.0f;
-            transform.localScale = new Vector3(sl, sl, sl);
+            projectileManager.FireProjectile(projectileId, gun.position, gun.rotation);
 
-            SyncMetaData();
+        } else reloadTimer -= Time.deltaTime;
+
+        if (actionTimer < 0) {
+
+            actionTimer = Random.Range(0.0f, 6.0f);
+            actionId = Random.Range(0, 4);
+        }
+
+        switch (actionId) {
+
+            case 0: rbody.AddForce(transform.right * moveForce * Time.deltaTime); break;
+            case 1: rbody.AddForce(transform.right * -moveForce * Time.deltaTime); break;
+            case 2: rbody.AddForce(transform.forward * moveForce * Time.deltaTime); break;
+            case 3: rbody.AddForce(transform.forward * -moveForce * Time.deltaTime); break;
         }
     }
 
-    public override byte[] MetaDataRequest () {
+    public override void OnDespawnShow () {
 
-        return System.BitConverter.GetBytes(transform.localScale.x);
-    }
-    public override void OnMetaDataSet (byte[] data) {
-
-        if (data.Length != 4) return;
-
-        float sl = System.BitConverter.ToSingle(data, 0);
-        transform.localScale = new Vector3(sl, sl, sl);
-    }
-
-    public override void OnAttack (int damage, object sender) {
-
-        Debug.Log("attacked by " + (string)sender);
-
-        DriftureManager.DeleteEntity(entityId);
+        Instantiate(explodeEffect, transform.position, transform.rotation);
     }
 }
