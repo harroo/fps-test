@@ -14,13 +14,13 @@ public static class Network {
         tcpServer = new BlitServer();
 
         tcpServer.useCallBacks = true;
-        tcpServer.onLog = (string e) => { Logging.Log(e); };
+        // tcpServer.onLog = (string e) => { Logging.Log(e); };
         tcpServer.onError = (string e) => { Logging.Log(" [ERROR]: " + e); };
 
         udpServer = new UBlitServer();
 
         udpServer.useCallBacks = true;
-        udpServer.onLog = (string e) => { Logging.Log(e); };
+        // udpServer.onLog = (string e) => { Logging.Log(e); };
         udpServer.onError = (string e) => { Logging.Log(" [ERROR]: " + e); };
     }
 

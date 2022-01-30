@@ -16,13 +16,13 @@ public static class Network {
 
         tcpClient = new BlitClient();
         tcpClient.useCallBacks = true;
-        tcpClient.onLog = (string e) => { Logging.Log(e); };
-        tcpClient.onError = (string e) => { Logging.Log(" [ERROR]: " + e); };
+        // tcpClient.onLog = (string e) => { Debug.Log(e); };
+        tcpClient.onError = (string e) => { Debug.LogError(e); };
 
         udpClient = new UBlitClient();
         udpClient.useCallBacks = true;
-        udpClient.onLog = (string e) => { Logging.Log(e); };
-        udpClient.onError = (string e) => { Logging.Log(" [ERROR]: " + e); };
+        // udpClient.onLog = (string e) => { Debug.Log(e); };
+        udpClient.onError = (string e) => { Debug.LogError(e); };
 
         //on recv client id
         tcpClient.AddPacket(PacketId.PlayerMan_YourNameIs, (byte[] e) => {

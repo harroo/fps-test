@@ -22,6 +22,6 @@ public class LocalPlayerPosSync : MonoBehaviour {
         packet.Append(cam.rotation.x); packet.Append(cam.rotation.y);
         packet.Append(cam.rotation.z); packet.Append(cam.rotation.w);
 
-        Network.udpClient.Send(0, packet.ToArray());
+        Network.udpClient.Send(PacketId.PlayerMan_Move, packet.ToArray());
     }
 }
