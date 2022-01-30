@@ -74,7 +74,6 @@ public static class PlayerManager {
 
         BlitPacket relayPacket = new BlitPacket();
         relayPacket.Append(client.blitzId);
-        relayPacket.Append(client.username);
         Network.tcpServer.RelayExclude(PacketId.PlayerMan_Leave, relayPacket.ToArray(), clientId);
 
         Logging.Log("`" + client.username + "' left the Server..");
