@@ -17,6 +17,8 @@ public class Enemy : EntityBehaviour {
 
         projectileManager = FindObjectOfType<ProjectileManager>();
         rbody = FindObjectOfType<Rigidbody>();
+
+        reloadTime = Random.Range(0.5f, 2.0f);
     }
 
     private int actionId;
@@ -24,19 +26,23 @@ public class Enemy : EntityBehaviour {
 
     public override void Tick () {
 
-        transform.LookAt(PlayerRef.player);
+        if ((PlayerRef.player.position - transform.position).magnitude < 16.32f) {
 
-        if (reloadTimer < 0) { reloadTimer = reloadTime;
+            transform.LookAt(PlayerRef.player);
 
-            projectileManager.FireProjectile(projectileId, gun.position, gun.rotation);
+            if (reloadTimer < 0) { reloadTimer = reloadTime;
 
-        } else reloadTimer -= Time.deltaTime;
+                projectileManager.FireProjectile(projectileId, gun.position, gun.rotation);
+
+            } else reloadTimer -= Time.deltaTime;
+        }
 
         if (actionTimer < 0) {
 
             actionTimer = Random.Range(0.0f, 6.0f);
             actionId = Random.Range(0, 4);
-        }
+
+        } else actionTimer -= Time.deltaTime;
 
         switch (actionId) {
 
