@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public class Despawn : MonoBehaviour {
+public class DespawnUtility : MonoBehaviour {
 
 	public float aliveTime;
 

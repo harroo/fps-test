@@ -17,4 +17,7 @@ public static class PacketId {
     public const ushort PlayerMan_Move = 3;
     public const ushort PlayerMan_Leave = 4;
     public const ushort PlayerMan_YourNameIs = 5;
+
+    public const ushort Projectile_Shoot = 16;
+    public const ushort PlaySound = 17;
 }

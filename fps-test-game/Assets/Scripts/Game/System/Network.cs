@@ -30,6 +30,15 @@ public static class Network {
 
             clientId = packet.GetInt32();
         });
+
+        //on play sound
+        tcpClient.AddPacket(PacketId.PlaySound, (byte[] e) => {
+                BlitPacket packet = new BlitPacket(e);
+
+            ReverbAudioManager.Play3D(packet.GetString(),
+                new Vector3(packet.GetSingle(), packet.GetSingle(), packet.GetSingle())
+            );
+        });
     }
 
     public static void Start () {
@@ -41,5 +50,14 @@ public static class Network {
         joinPacket.Append(DriftureManager.thisName);
         joinPacket.Append(PlayerPrefs.GetString("USER"));
         tcpClient.Send(PacketId.PlayerMan_Join, joinPacket.ToArray());
+    }
+
+    public static void PlaySound (string name, Vector3 pos) {
+
+        BlitPacket packet = new BlitPacket();
+        packet.Append(name);
+        packet.Append(pos.x); packet.Append(pos.y); packet.Append(pos.z);
+
+        tcpClient.Send(PacketId.PlaySound, packet.ToArray());
     }
 }

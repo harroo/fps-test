@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public class SpawnWithUtility : MonoBehaviour {
+public class SpawnOnUtility : MonoBehaviour {
 
     public GameObject objectToCreateOnStart, objectToCreateOnDestroy, objectToCreateOnCollision;
 
