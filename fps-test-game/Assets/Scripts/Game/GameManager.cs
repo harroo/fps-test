@@ -19,20 +19,17 @@ public class GameManager : MonoBehaviour {
         DriftureInterface.ConfigureEntityManager();
 
         Network.Start();
-    }
 
-    private float timer = 1.0f;
+        //spawn test entity
+            DriftureManager.CreateEntity(0, new Vector3(Random.Range(-8, 8), Random.Range(3, 8), Random.Range(-8, 8)), new byte[0]{});
+    }
 
     private void Update () {
 
         Network.tcpClient.RunCallBacks();
         Network.udpClient.RunCallBacks();
 
-        if (timer < 0.0f) { timer = 1.0f;
-
-            DriftureInterface.Simulate();
-
-        } else timer -= Time.deltaTime;
+        DriftureInterface.Simulate();
     }
 
     private void OnDestroy () {

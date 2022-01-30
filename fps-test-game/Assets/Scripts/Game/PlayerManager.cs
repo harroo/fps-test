@@ -55,7 +55,7 @@ public class PlayerManager : MonoBehaviour {
 
             if (!playerCache.ContainsKey(id)) return;
 
-            playerCache[id].transform.position = new Vector3(px, py, pz);
+            playerCache[id].transform.position = new Vector3(px, py + 1, pz);
             playerCache[id].transform.rotation = new Quaternion(rx, ry, rz, rw);
         });
     }

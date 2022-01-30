@@ -11,6 +11,7 @@ public static class PacketId {
     public const ushort Drifture_UpdateMetaData = 11;
     public const ushort Drifture_SpawnEntity = 12;
     public const ushort Drifture_DespawnEntity = 14;
+    public const ushort Drifture_UpdatePos = 15;
 
     public const ushort PlayerMan_Join = 2;
     public const ushort PlayerMan_Move = 3;

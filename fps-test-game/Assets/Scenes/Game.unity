@@ -883,6 +883,7 @@ GameObject:
   - component: {fileID: 1175738904}
   - component: {fileID: 1175738906}
   - component: {fileID: 1175738905}
+  - component: {fileID: 1175738907}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -949,6 +950,18 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1175738907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175738903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c83d52e5c3b6993eb8c68d32a136710, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1256794205
 GameObject:
   m_ObjectHideFlags: 0
@@ -1073,7 +1086,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ab6ea0b5822668197cead87ac05ed3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instances: []
+  instances:
+  - name: basic enemy
+    type: 0
+    prefab: {fileID: 7837040802275182874, guid: 69d0a975a653f22bfb85505e5992d1bd, type: 3}
 --- !u!4 &1449609467
 Transform:
   m_ObjectHideFlags: 0

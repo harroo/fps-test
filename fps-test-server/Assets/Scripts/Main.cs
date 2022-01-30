@@ -48,7 +48,12 @@ public class Main : MonoBehaviour {
 
     private void OnDestroy () { OnShutdown(); }
 
+    private static bool shutdown = false;
+
     private void OnShutdown () {
+
+        if (shutdown) return;
+        shutdown = true;
 
         Logging.Log("Shutting Down..");
 

@@ -58,6 +58,32 @@ public static class DriftureInterface {
 
     public static void ConfigureEntityManager () {
 
+        EntityManager.UpdateEntityPosition = (ulong entityId, Vector3 pos, Quaternion rot) => {
+
+            BlitPacket packet = new BlitPacket();
+            packet.Append(entityId);
+            packet.Append(pos.x); packet.Append(pos.y); packet.Append(pos.z);
+            packet.Append(rot.x); packet.Append(rot.y); packet.Append(rot.z); packet.Append(rot.w);
+
+            Network.udpClient.Send(PacketId.Drifture_UpdatePos, packet.ToArray());
+        };
+        EntityManager.EnsureEntityPosition = (ulong entityId, Vector3 pos, Quaternion rot) => {
+
+            BlitPacket packet = new BlitPacket();
+            packet.Append(entityId);
+            packet.Append(pos.x); packet.Append(pos.y); packet.Append(pos.z);
+            packet.Append(rot.x); packet.Append(rot.y); packet.Append(rot.z); packet.Append(rot.w);
+
+            Network.tcpClient.Send(PacketId.Drifture_EnsureEntityPosition, packet.ToArray());
+        };
+        EntityManager.SyncEntityMetaData = (ulong entityId, byte[] metaData) => {
+
+            BlitPacket packet = new BlitPacket();
+            packet.Append(entityId);
+            packet.Append(metaData);
+
+            Network.tcpClient.Send(PacketId.Drifture_UpdateMetaData, packet.ToArray());
+        };
         //update metadata
         Network.tcpClient.AddPacket(PacketId.Drifture_UpdateMetaData, (byte[] e) => {
                 BlitPacket packet = new BlitPacket(e);
@@ -79,6 +105,14 @@ public static class DriftureInterface {
 
             EntityManager.SpawnEntity(entityId, type, position, rotation, metaData);
         });
+        //despawn entity
+        Network.tcpClient.AddPacket(PacketId.Drifture_DespawnEntity, (byte[] e) => {
+                BlitPacket packet = new BlitPacket(e);
+
+            ulong entityId = packet.GetUInt64();
+
+            EntityManager.DespawnEntity(entityId);
+        });
         //interact entity
         Network.tcpClient.AddPacket(PacketId.Drifture_Interact, (byte[] e) => {
                 BlitPacket packet = new BlitPacket(e);
@@ -97,6 +131,20 @@ public static class DriftureInterface {
             object sender = packet.GetObject();
 
             EntityManager.AttackEntity(entityId, damage, sender);
+        });
+
+        //entity pos update
+        Network.udpClient.AddPacket(PacketId.Drifture_UpdatePos, (byte[] e) => {
+                BlitPacket packet = new BlitPacket(e);
+
+            ulong entityId = packet.GetUInt64();
+
+            float px = packet.GetSingle(); float py = packet.GetSingle(); float pz = packet.GetSingle();
+
+            float rx = packet.GetSingle(); float ry = packet.GetSingle();
+            float rz = packet.GetSingle(); float rw = packet.GetSingle();
+
+            EntityManager.UpdateTransform(entityId, new Vector3(px, py, pz), new Quaternion(rx, ry, rz, rw));
         });
     }
 
