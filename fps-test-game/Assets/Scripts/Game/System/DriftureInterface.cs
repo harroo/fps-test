@@ -146,11 +146,25 @@ public static class DriftureInterface {
 
             EntityManager.UpdateTransform(entityId, new Vector3(px, py, pz), new Quaternion(rx, ry, rz, rw));
         });
+
+        //entity pos ensure update
+        Network.tcpClient.AddPacket(PacketId.Drifture_EnsureEntityPosition, (byte[] e) => {
+                BlitPacket packet = new BlitPacket(e);
+
+            ulong entityId = packet.GetUInt64();
+
+            float px = packet.GetSingle(); float py = packet.GetSingle(); float pz = packet.GetSingle();
+
+            float rx = packet.GetSingle(); float ry = packet.GetSingle();
+            float rz = packet.GetSingle(); float rw = packet.GetSingle();
+
+            EntityManager.UpdateTransform(entityId, new Vector3(px, py, pz), new Quaternion(rx, ry, rz, rw));
+        });
     }
 
     public static void Simulate () {
 
-        if (Submanager.SendCount() != 0) {
+        while (Submanager.SendCount() != 0) {
 
             byte[] sendData = Submanager.PopSendQueue();
 

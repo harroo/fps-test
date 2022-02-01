@@ -58,5 +58,24 @@ public class PlayerManager : MonoBehaviour {
             playerCache[id].transform.position = new Vector3(px, py + 0.7f, pz);
             playerCache[id].transform.rotation = new Quaternion(rx, ry, rz, rw);
         });
+
+        //on player pos ensure update
+        Network.tcpClient.AddPacket(PacketId.PlayerMan_Move, (byte[] e) => {
+                BlitPacket packet = new BlitPacket(e);
+
+            int id = packet.GetInt32();
+            if (Network.clientId == id) return;
+
+            float px = packet.GetSingle(); float py = packet.GetSingle();
+            float pz = packet.GetSingle();
+
+            float rx = packet.GetSingle(); float ry = packet.GetSingle();
+            float rz = packet.GetSingle(); float rw = packet.GetSingle();
+
+            if (!playerCache.ContainsKey(id)) return;
+
+            playerCache[id].transform.position = new Vector3(px, py + 0.7f, pz);
+            playerCache[id].transform.rotation = new Quaternion(rx, ry, rz, rw);
+        });
     }
 }

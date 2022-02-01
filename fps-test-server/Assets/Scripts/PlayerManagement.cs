@@ -58,6 +58,12 @@ public static class PlayerManager {
             Logging.Log("`" + newClient.username + "' joined the Server!");
         });
 
+        //on player pos ensure update
+        Network.tcpServer.AddPacket(PacketId.PlayerMan_Move, (int sender, byte[] b) => {
+
+            Network.tcpServer.RelayExclude(PacketId.PlayerMan_Move, b, sender);
+        });
+
         //on player leave
         Network.tcpServer.AddPacket(PacketId.PlayerMan_Leave, (int a, byte[] b)=>{HandleDisconnect(a);});
         //backup player leave

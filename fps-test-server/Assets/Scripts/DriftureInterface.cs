@@ -13,6 +13,9 @@ public static class DriftureInterface {
 
             Submanager.UpdatePlayerPos(rb);
         });
+
+        //set entity draw range
+        Submanager.SetRange(24);
     }
 
     public static void ConfigureEntityManager () {
@@ -55,6 +58,8 @@ public static class DriftureInterface {
             float rz = packet.GetSingle(); float rw = packet.GetSingle();
 
             EntityManager.UpdateTransform(entityId, new Vector3(px, py, pz), new Quaternion(rx, ry, rz, rw));
+
+            Network.tcpServer.RelayAll(PacketId.Drifture_EnsureEntityPosition, rb);
         });
         //on update meta data
         Network.tcpServer.AddPacket(PacketId.Drifture_UpdateMetaData, (int sender, byte[] rb) => {
@@ -107,7 +112,7 @@ public static class DriftureInterface {
 
     public static void Simulate () {
 
-        if (Submanager.SendCount() != 0) {
+        while (Submanager.SendCount() != 0) {
 
             byte[] sendData = Submanager.PopSendQueue();
 
