@@ -55,7 +55,7 @@ namespace Drifture {
 
                 entities.Add(entity.entityId, entity);
 
-                SpawnEntity(entity.entityId, type, pos, Quaternion.identity, mData);
+                // SpawnEntity(entity.entityId, type, pos, Quaternion.identity, mData);
 
             } finally { mutex.ReleaseMutex(); }
         }
